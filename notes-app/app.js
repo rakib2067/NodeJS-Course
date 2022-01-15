@@ -9,8 +9,20 @@ yargs
   .command({
     command: "add",
     describe: "Add a new Note",
-    handler: () => {
-      console.log("Adding a new Note");
+    builder: {
+      title: {
+        describe: "Note title",
+        demandOption: true,
+        type: "string",
+      },
+      body: {
+        describe: "Note Body",
+        demandOption: true,
+        type: "string",
+      },
+    },
+    handler: (argv) => {
+      console.log(`Title: ${argv.title} \nDescription: ${argv.description}`);
     },
   })
   .command({
@@ -18,5 +30,19 @@ yargs
     describe: "Remove a new Note",
     handler: () => {
       console.log("Removing a new Note");
+    },
+  })
+  .command({
+    command: "list",
+    describe: "List your notes",
+    handler: function () {
+      console.log("Listing out all notes");
+    },
+  })
+  .command({
+    command: "read",
+    describe: "Read a note",
+    handler: function () {
+      console.log("Reading note 1...");
     },
   }).argv;
