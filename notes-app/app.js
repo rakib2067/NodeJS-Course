@@ -3,10 +3,20 @@ const chalk = require("chalk").default;
 const yargs = require("yargs");
 const getNotes = require("./notes");
 
-yargs.command({
-  command: "add",
-  describe: "add a note to your notebook",
-  handler: function () {
-    console.log("Added note");
-  },
-});
+// console.log(yargs.argv);
+
+yargs
+  .command({
+    command: "add",
+    describe: "Add a new Note",
+    handler: () => {
+      console.log("Adding a new Note");
+    },
+  })
+  .command({
+    command: "remove",
+    describe: "Remove a new Note",
+    handler: () => {
+      console.log("Removing a new Note");
+    },
+  }).argv;
