@@ -20,7 +20,12 @@ const addNote = (title, body) => {
 const removeNote = (title) => {
   const notes = loadNotes();
   const newNotes = notes.filter((item) => item.title !== title);
-  saveNotes(newNotes);
+  if (newNotes.length === notes.length) {
+    console.log(chalk.red.inverse("No note found!"));
+  } else {
+    console.log(chalk.green.inverse("Note succesfully removed!"));
+    saveNotes(newNotes);
+  }
 };
 
 const saveNotes = (notes) => {
