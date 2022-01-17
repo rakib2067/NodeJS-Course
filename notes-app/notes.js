@@ -28,6 +28,22 @@ const removeNote = (title) => {
   }
 };
 
+const readNote = (title) => {
+  const notes = loadNotes();
+  const noteIndex = notes.filter((item) => item.title === title);
+  const note = noteIndex[0];
+  console.log(`${note.title}: ${note.body}`);
+};
+
+const listNotes = () => {
+  const notes = loadNotes();
+  if (notes.length > 0) {
+    notes.map((item) => console.log(`${item.title}: ${item.body}\n`));
+  } else {
+    console.log(chalk.red.inverse("No Notes Found!"));
+  }
+};
+
 const saveNotes = (notes) => {
   fs.writeFileSync("notes.json", JSON.stringify(notes));
 };
@@ -45,4 +61,6 @@ module.exports = {
   getNotes: getNotes,
   addNote: addNote,
   removeNote,
+  listNotes,
+  readNote,
 };
