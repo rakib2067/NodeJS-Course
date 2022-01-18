@@ -25,7 +25,7 @@ yargs
         type: "string",
       },
     },
-    handler: (argv) => {
+    handler(argv) {
       addNote(argv.title, argv.body);
     },
   })
@@ -39,14 +39,14 @@ yargs
         type: "string",
       },
     },
-    handler: (argv) => {
+    handler(argv) {
       removeNote(argv.title);
     },
   })
   .command({
     command: "list",
     describe: "List your notes",
-    handler: () => {
+    handler() {
       listNotes();
     },
   })
@@ -60,7 +60,7 @@ yargs
         type: "string",
       },
     },
-    handler: (argv) => {
+    handler(argv) {
       readNote(argv.title);
     },
   }).argv;

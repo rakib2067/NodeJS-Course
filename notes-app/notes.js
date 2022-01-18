@@ -4,8 +4,8 @@ const getNotes = () => "Your notes...";
 
 const addNote = (title, body) => {
   const notes = loadNotes();
-  const duplicates = notes.filter((item) => item.title === title);
-  if (duplicates.length === 0) {
+  const duplicate = notes.find((item) => item.title === title);
+  if (!duplicate) {
     notes.push({
       title: title,
       body: body,
@@ -30,8 +30,7 @@ const removeNote = (title) => {
 
 const readNote = (title) => {
   const notes = loadNotes();
-  const noteIndex = notes.filter((item) => item.title === title);
-  const note = noteIndex[0];
+  const note = notes.find((item) => item.title === title);
   console.log(`${note.title}: ${note.body}`);
 };
 
