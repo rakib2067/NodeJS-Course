@@ -1,9 +1,11 @@
 const request = require("request");
 
-const forecast = (location, callback) => {
+const forecast = (lat, long, callback) => {
   const url =
     "http://api.weatherstack.com/current?access_key=eb256eba88cb08519851d4e6cb09de1b&query=" +
-    location;
+    lat +
+    "," +
+    long;
   request({ url: url, json: true }, (error, response) => {
     if (error) {
       callback("OS Level Error: Are you connected to Wifi?", undefined);
@@ -16,7 +18,7 @@ const forecast = (location, callback) => {
       data = response.body.current;
       callback(
         undefined,
-        `${data.weather_descriptions[0]}: It is currently ${data.temperature} degrees outside. It feels like ${data.feelslike} degrees`
+        `${data.weather_descriptions[0]}. It is currently ${data.temperature} degrees outside. It feels like ${data.feelslike} degrees`
       );
     }
   });
