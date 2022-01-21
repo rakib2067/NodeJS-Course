@@ -7,8 +7,17 @@ const publicDirectory = path.join(__dirname, "../public");
 
 app.use(express.static(publicDirectory));
 
+app.set("view engine", "hbs");
 app.get("", (req, res) => {
-  res.send("Hello Express");
+  res.render("index", { title: "Weather App", name: "Rakib" });
+});
+
+app.get("/about", (req, res) => {
+  res.render("about", { title: "About Me", name: "Rakib Ali" });
+});
+
+app.get("/help", (req, res) => {
+  res.render("help", { title: "Help", message: "How to Node?" });
 });
 
 app.get("/weather", (req, res) => {
