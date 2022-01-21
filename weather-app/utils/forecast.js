@@ -6,16 +6,13 @@ const forecast = (lat, long, callback) => {
     lat +
     "," +
     long;
-  request({ url: url, json: true }, (error, response) => {
+  request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback("OS Level Error: Are you connected to Wifi?", undefined);
-    } else if (response.body.error) {
-      callback(
-        `Error ${response.body.error.type}: ${response.body.error.info}`,
-        undefined
-      );
+    } else if (body.error) {
+      callback(`Error ${body.error.type}: ${body.error.info}`, undefined);
     } else {
-      data = response.body.current;
+      data = body.current;
       callback(
         undefined,
         `${data.weather_descriptions[0]}. It is currently ${data.temperature} degrees outside. It feels like ${data.feelslike} degrees`

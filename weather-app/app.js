@@ -1,18 +1,19 @@
 const geocode = require("./utils/geocode");
 const forecast = require("./utils/forecast");
 
-// Geocoding
-if (process.argv[2]) {
-  geocode(process.argv[2], (error, data) => {
+const query = process.argv[2];
+
+if (query) {
+  geocode(query, (error, { latitude, longitude, location } = {}) => {
     if (error) {
       return console.log(error);
     }
-    // Forecast
-    forecast(data.latitude, data.longitude, (error, forecastData) => {
+
+    forecast(latitude, longitude, (error, forecastData) => {
       if (error) {
         return console.log(error);
       }
-      console.log(`Location: ${data.location}\nForecast: ${forecastData}`);
+      console.log(`Location: ${location}\nForecast: ${forecastData}`);
     });
   });
 } else {
