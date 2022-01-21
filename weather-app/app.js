@@ -1,5 +1,6 @@
 const request = require("request");
 const weatherKey = "eb256eba88cb08519851d4e6cb09de1b";
+const geocode = require("./utils/geocode");
 
 const url =
   "http://api.weatherstack.com/current?access_key=eb256eba88cb08519851d4e6cb09de1b&query=Hackney";
@@ -21,17 +22,7 @@ request({ url: url, json: true }, (error, response) => {
 
 // Geocoding
 
-let newURL =
-  "https://api.mapbox.com/geocoding/v5/mapbox.places/London.json?access_token=pk.eyJ1IjoicmFraWI3NzciLCJhIjoiY2t5bHh2YmUwMHNkazJ3cG5uYjRlamN4NCJ9.lts4Fo4nACZEkn6vMP8Xiw&limit=1";
-
-request({ url: newURL, json: true }, (error, response) => {
-  if (error) {
-    console.log("OS Level Error: Are you connected to Wifi?");
-  } else if (response.body.features.length === 0) {
-    console.log("Error: Invalid Location");
-  } else {
-    const data = response.body;
-    console.log(`You searched for: ${data.query[0]}\nLatitude: ${data.features[0].center[1]}\nLongitude: ${data.features[0].center[0]}
-    `);
-  }
+geocode("London", (error, data) => {
+  console.log("Error", error);
+  console.log("Data", data);
 });
