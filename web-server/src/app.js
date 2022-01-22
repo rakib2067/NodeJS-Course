@@ -37,6 +37,21 @@ app.get("/weather", (req, res) => {
   res.send({ temp: "27 degrees", location: "London", precipitation: 23 });
 });
 
+app.get("/help/*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Help Article Not Found",
+    name: "Rakib Ali",
+  });
+});
+app.get("*", (req, res) => {
+  res.render("404", {
+    title: "404",
+    errorMessage: "Page Not Found",
+    name: "Rakib Ali",
+  });
+});
+
 app.listen(3000, () => {
   console.log("server is up on port 3000");
 });
