@@ -34,7 +34,16 @@ app.get("/help", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
-  res.send({ temp: "27 degrees", location: "London", precipitation: 23 });
+  if (!req.query.address) {
+    return res.send("You must enter a valid query");
+  }
+
+  res.send({
+    temp: "27 degrees",
+    location: "London",
+    precipitation: 23,
+    address: req.query.address,
+  });
 });
 
 app.get("/help/*", (req, res) => {
