@@ -40,9 +40,9 @@ app.get("/weather", (req, res) => {
     return res.send("You must enter a valid query");
   }
 
-  const currentForecast = geocode(
+  geocode(
     req.query.address,
-    (error, { latitude, longitude, location }) => {
+    (error, { latitude, longitude, location } = {}) => {
       if (error) {
         return console.log(error);
       }
@@ -50,18 +50,15 @@ app.get("/weather", (req, res) => {
         if (error) {
           return console.log(error);
         }
-        return data;
+        // console.log(data);
+        return res.send({
+          forecast: data,
+          location,
+          address: req.query.address,
+        });
       });
     }
   );
-
-  res.send({
-    temp: "27 degrees",
-    location: "London",
-    precipitation: 23,
-    address: req.query.address,
-    currentForecast,
-  });
 });
 
 app.get("/help/*", (req, res) => {
