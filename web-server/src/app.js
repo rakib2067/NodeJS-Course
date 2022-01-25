@@ -35,9 +35,10 @@ app.get("/help", (req, res) => {
   });
 });
 
+// Forecast endpoint
 app.get("/weather", (req, res) => {
   if (!req.query.address) {
-    return res.send("You must enter a valid query");
+    return res.send({ error: "You must enter a valid query" });
   }
 
   geocode(
