@@ -9,21 +9,19 @@ const getForecast = (event) => {
     const address = addressInput.value;
 
     //fetch request using provided address
-    fetch("http://localhost:3000/weather?address=" + address).then(
-      (response) => {
-        response.json().then((data) => {
-          if (data.error) {
-            console.log(data.error);
-            type.innerHTML = "Error";
-            message.innerHTML = data.error;
-          } else {
-            console.log(data.location);
-            type.innerHTML = data.location;
-            message.innerHTML = data.forecast;
-            console.log(data.forecast);
-          }
-        });
-      }
-    );
+    fetch("/weather?address=" + address).then((response) => {
+      response.json().then((data) => {
+        if (data.error) {
+          console.log(data.error);
+          type.innerHTML = "Error";
+          message.innerHTML = data.error;
+        } else {
+          console.log(data.location);
+          type.innerHTML = data.location;
+          message.innerHTML = data.forecast;
+          console.log(data.forecast);
+        }
+      });
+    });
   });
 };
