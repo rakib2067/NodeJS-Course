@@ -15,7 +15,8 @@ const forecast = (lat, long, callback) => {
       data = body.current;
       callback(
         undefined,
-        `${data.weather_descriptions[0]}. It is currently ${data.temperature} degrees outside. It feels like ${data.feelslike} degrees`
+        `${data.weather_descriptions[0]}. It is currently ${data.temperature} degrees outside. It feels like ${data.feelslike} degrees.
+        There is currently ${data.precip}% of raining with a humidity level of ${data.humidity} .`
       );
     }
   });
