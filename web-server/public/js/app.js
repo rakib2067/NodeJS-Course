@@ -9,6 +9,7 @@ const getForecast = (event) => {
     const address = addressInput.value;
 
     //fetch request using provided address
+    //test
     fetch("/weather?address=" + address).then((response) => {
       response.json().then((data) => {
         if (data.error) {
