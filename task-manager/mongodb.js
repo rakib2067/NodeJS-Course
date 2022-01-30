@@ -14,6 +14,29 @@ MongoClient.connect(
       return console.log("Unable to connect to database");
     }
     const db = client.db(databaseName);
-    db.collection("users").insertOne({ name: "Rakib Ali", age: 21 });
+    // db.collection("users").insertOne(
+    //   { name: "Rakib Ali", age: 21 },
+    //   (error, result) => {
+    //     if (error) {
+    //       return console.log("Unable to return user");
+    //     }
+    //     console.log(result);
+    //   }
+    // );
+
+    db.collection("users").insertMany(
+      [
+        { name: "Rakib Ali", age: 21 },
+        { name: "John Doe", age: 15 },
+        { name: "Sue Grey", age: 4 },
+        { name: "Peter Jones", age: 22 },
+      ],
+      (error, result) => {
+        if (error) {
+          return console.log("Unable to insert documents");
+        }
+        console.log(result);
+      }
+    );
   }
 );
