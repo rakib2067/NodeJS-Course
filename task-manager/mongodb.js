@@ -24,12 +24,26 @@ MongoClient.connect(
     //   }
     // );
 
-    db.collection("users").insertMany(
+    // db.collection("users").insertMany(
+    //   [
+    //     { name: "Rakib Ali", age: 21 },
+    //     { name: "John Doe", age: 15 },
+    //     { name: "Sue Grey", age: 4 },
+    //     { name: "Peter Jones", age: 22 },
+    //   ],
+    //   (error, result) => {
+    //     if (error) {
+    //       return console.log("Unable to insert documents");
+    //     }
+    //     console.log(result);
+    //   }
+    // );
+
+    db.collection("tasks").insertMany(
       [
-        { name: "Rakib Ali", age: 21 },
-        { name: "John Doe", age: 15 },
-        { name: "Sue Grey", age: 4 },
-        { name: "Peter Jones", age: 22 },
+        { description: "Finish NodeJS Course", completed: false },
+        { description: "Finish React Course", completed: true },
+        { description: "Get a Job", completed: false },
       ],
       (error, result) => {
         if (error) {
