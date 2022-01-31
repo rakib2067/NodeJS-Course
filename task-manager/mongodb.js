@@ -39,18 +39,18 @@ MongoClient.connect(
     //   }
     // );
 
-    db.collection("tasks").insertMany(
-      [
-        { description: "Finish NodeJS Course", completed: false },
-        { description: "Finish React Course", completed: true },
-        { description: "Get a Job", completed: false },
-      ],
-      (error, result) => {
-        if (error) {
-          return console.log("Unable to insert documents");
-        }
-        console.log(result);
-      }
-    );
+    // db.collection("tasks").insertMany(
+    //   [
+    //     { description: "Finish NodeJS Course", completed: false },
+    //     { description: "Finish React Course", completed: true },
+    //     { description: "Get a Job", completed: false },
+    //   ],
+    //   (error, result) => {
+    //     if (error) {
+    //       return console.log("Unable to insert documents");
+    //     }
+    //     console.log(result);
+    //   }
+    // );
   }
 );
