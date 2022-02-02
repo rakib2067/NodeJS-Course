@@ -12,28 +12,23 @@ MongoClient.connect(
       return console.log("Unable to connect to database");
     }
     const db = client.db(databaseName);
-    db.collection("users").findOne({ name: "Imran Hussain" }, (error, user) => {
-      if (error) {
-        return "Unable to find query";
+    const updatePromise = db.collection("users").updateOne(
+      {
+        _id: new ObjectId("61f71e0710eb613e239918ee"),
+      },
+      {
+        $set: {
+          name: "Amusam",
+        },
       }
-      console.log(user);
-    });
-    db.collection("tasks")
-      .find({ completed: false })
-      .toArray((error, data) => {
-        if (error) {
-          return error;
-        }
-        console.log(data);
-      });
+    );
 
-    db.collection("users")
-      .find({ age: 21 })
-      .count((error, count) => {
-        if (error) {
-          return error;
-        }
-        console.log(count);
+    updatePromise
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log("Error", error);
       });
   }
 );
