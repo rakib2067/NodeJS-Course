@@ -12,18 +12,17 @@ MongoClient.connect(
       return console.log("Unable to connect to database");
     }
     const db = client.db(databaseName);
-    const updatePromise = db.collection("users").updateOne(
-      {
-        _id: new ObjectId("61f71e0710eb613e239918ee"),
-      },
-      {
-        $set: {
-          name: "Amusam",
+    db.collection("users")
+      .updateOne(
+        {
+          _id: new ObjectId("61f71e0710eb613e239918ee"),
         },
-      }
-    );
-
-    updatePromise
+        {
+          $set: {
+            name: "Masuma",
+          },
+        }
+      )
       .then((result) => {
         console.log(result);
       })
