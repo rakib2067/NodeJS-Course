@@ -12,31 +12,18 @@ MongoClient.connect(
       return console.log("Unable to connect to database");
     }
     const db = client.db(databaseName);
-    // db.collection("users")
-    //   .updateOne(
-    //     {
-    //       _id: new ObjectId("61f71e0710eb613e239918ed"),
-    //     },
-    //     {
-    //       $inc: {
-    //         age: 1,
-    //       },
-    //     }
-    //   )
-    //   .then((result) => {
-    //     console.log(result);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error", error);
-    //   });
 
-    db.collection("tasks")
-      .updateMany(
-        {
-          completed: false,
-        },
-        { $set: { completed: true } }
-      )
+    db.collection("users")
+      .deleteOne({ name: "Imran Hussain" })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    db.collection("users")
+      .deleteMany({ name: "Rakib Ali" })
       .then((result) => {
         console.log(result);
       })
