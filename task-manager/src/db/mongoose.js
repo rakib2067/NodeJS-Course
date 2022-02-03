@@ -8,6 +8,11 @@ const User = mongoose.model("User", {
   },
   age: {
     type: Number,
+    validate(value) {
+      if (value < 0) {
+        throw new Error("Age must ne a positive number.");
+      }
+    },
   },
 });
 
@@ -23,26 +28,26 @@ const Task = mongoose.model("Task", {
   },
 });
 
-// const me = new User({ name: "Rakib", age: 21 });
-// me.save()
-//   .then(() => {
-//     console.log(me);
-//   })
-//   .catch((error) => {
-//     console.log("Error", error);
-//   });
-
-const task = new Task({
-  title: "Finish Node JS Course",
-  description: "Complete the Node JS course I purchased through Udemy",
-  completed: false,
-});
-
-task
-  .save()
+const me = new User({ name: "Imran", age: 23 });
+me.save()
   .then(() => {
-    console.log(task);
+    console.log(me);
   })
   .catch((error) => {
     console.log("Error", error);
   });
+
+// const task = new Task({
+//   title: "Finish Node JS Course",
+//   description: "Complete the Node JS course I purchased through Udemy",
+//   completed: false,
+// });
+
+// task
+//   .save()
+//   .then(() => {
+//     console.log(task);
+//   })
+//   .catch((error) => {
+//     console.log("Error", error);
+//   });
