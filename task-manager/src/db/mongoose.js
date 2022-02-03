@@ -11,10 +11,37 @@ const User = mongoose.model("User", {
   },
 });
 
-const me = new User({ name: "Rakib", age: 21 });
-me.save()
+const Task = mongoose.model("Task", {
+  title: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  completed: {
+    type: Boolean,
+  },
+});
+
+// const me = new User({ name: "Rakib", age: 21 });
+// me.save()
+//   .then(() => {
+//     console.log(me);
+//   })
+//   .catch((error) => {
+//     console.log("Error", error);
+//   });
+
+const task = new Task({
+  title: "Finish Node JS Course",
+  description: "Complete the Node JS course I purchased through Udemy",
+  completed: false,
+});
+
+task
+  .save()
   .then(() => {
-    console.log(me);
+    console.log(task);
   })
   .catch((error) => {
     console.log("Error", error);
