@@ -42,43 +42,45 @@ const User = mongoose.model("User", {
   },
 });
 
-const Task = mongoose.model("Task", {
-  title: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  completed: {
-    type: Boolean,
-  },
-});
-
-const me = new User({
-  name: "  Tanweer  ",
-  email: "Tanweer@gmail.com",
-  age: 22,
-  password: "MakGrillz123",
-});
-me.save()
-  .then(() => {
-    console.log(me);
-  })
-  .catch((error) => {
-    console.log("Error", error);
-  });
-
-// const task = new Task({
-//   title: "Finish Node JS Course",
-//   description: "Complete the Node JS course I purchased through Udemy",
-//   completed: false,
+// const me = new User({
+//   name: "  Tanweer  ",
+//   email: "Tanweer@gmail.com",
+//   age: 22,
+//   password: "MakGrillz123",
 // });
-
-// task
-//   .save()
+// me.save()
 //   .then(() => {
-//     console.log(task);
+//     console.log(me);
 //   })
 //   .catch((error) => {
 //     console.log("Error", error);
 //   });
+
+const Task = mongoose.model("Task", {
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  description: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
+  },
+});
+const task = new Task({
+  title: "    Finish React Course    ",
+  description: "    Complete the React course I purchased through Udemy   ",
+});
+task
+  .save()
+  .then(() => {
+    console.log(task);
+  })
+  .catch((error) => {
+    console.log("Error", error);
+  });
