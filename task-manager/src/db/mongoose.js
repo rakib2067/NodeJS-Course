@@ -6,12 +6,12 @@ mongoose.connect("mongodb://127.0.0.1:27017/task-manager-api");
 const User = mongoose.model("User", {
   name: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
     lowercase: true,
     validate(value) {
@@ -26,6 +26,17 @@ const User = mongoose.model("User", {
     validate(value) {
       if (value < 0) {
         throw new Error("Age must ne a positive number.");
+      }
+    },
+  },
+  password: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 7,
+    validate(value) {
+      if (value.toLowerCase().includes("password")) {
+        throw new Error("Password cannot contain the word password!");
       }
     },
   },
@@ -44,8 +55,10 @@ const Task = mongoose.model("Task", {
 });
 
 const me = new User({
-  name: "Ismael                       ",
-  email: "Ismael@gmail.com",
+  name: "  Tanweer  ",
+  email: "Tanweer@gmail.com",
+  age: 22,
+  password: "MakGrillz123",
 });
 me.save()
   .then(() => {
