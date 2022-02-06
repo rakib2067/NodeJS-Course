@@ -7,10 +7,13 @@ const User = mongoose.model("User", {
   name: {
     type: String,
     require: true,
+    trim: true,
   },
   email: {
     type: String,
     require: true,
+    trim: true,
+    lowercase: true,
     validate(value) {
       if (!validator.isEmail(value)) {
         throw new Error("Email is Invalid");
@@ -19,6 +22,7 @@ const User = mongoose.model("User", {
   },
   age: {
     type: Number,
+    default: 0,
     validate(value) {
       if (value < 0) {
         throw new Error("Age must ne a positive number.");
@@ -39,7 +43,10 @@ const Task = mongoose.model("Task", {
   },
 });
 
-const me = new User({ name: "Ismael", email: "Ismael@gmail.com", age: 23 });
+const me = new User({
+  name: "Ismael                       ",
+  email: "Ismael@gmail.com",
+});
 me.save()
   .then(() => {
     console.log(me);
