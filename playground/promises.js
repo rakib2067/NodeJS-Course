@@ -1,14 +1,26 @@
-const doWorkPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve({ executed: true });
-    reject("Things went wrong");
-  }, 2000);
-});
+const add = (a, b) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // if (typeof (a || b !== "Number")) {
+      //   reject("Values entered must be of type Number");
+      // }
+      resolve(a + b);
+    }, 2000);
+  });
+};
 
-doWorkPromise
+// add(1, "what")
+//   .then((result) => {
+//     console.log(result);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+add(1, 1)
   .then((result) => {
     console.log(result);
+    return add(result, 2);
   })
-  .catch((error) => {
-    console.log("Error!", error);
-  });
+  .then((sum2) => console.log(sum2))
+  .catch((e) => console.log(e));
