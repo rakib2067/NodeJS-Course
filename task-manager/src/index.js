@@ -107,3 +107,27 @@ app.get("/tasks/:id", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+app.patch("/tasks/:id", async (req, res) => {
+  let _id = req.params.id;
+  let updates = Object.keys(req.body);
+  let allowed = ["title", "description", "completed"];
+  let isValidUpdate = updates.every((update) => allowed.includes(update));
+
+  if (!isValidUpdate) {
+    res.status(400).send("Invalid Update");
+  }
+
+  try {
+    let task = await Task.findByIdAndUpdate(_id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!task) {
+      res.status(404).send();
+    }
+    res.send(task);
+  } catch (error) {
+    res.status(400).send(e);
+  }
+});
