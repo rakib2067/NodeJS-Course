@@ -1,0 +1,1 @@
+C:/Users/rakib/mongodb/bin/mongod.exe --dbpath=C:/Users/rakib/mongodb-data  
