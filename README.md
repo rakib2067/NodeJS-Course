@@ -15,6 +15,22 @@ Node uses modules as a way of separating code, akin to private variables/functio
 - Without the module system, if we had the same function written in 2 files, one would overwrite the other
 - Modules prevent this by ensuring that each module contains variables and functions that are scoped to the module itself
 
+### The `Global` object
+
+As established, Node is a Javascript runtime built ontop of a C++ engine. Therefore, it includes extra features that standard JS does not have, and also does not have certain features exclusive to the JavaScript web API. For instance:
+
+- `setTimeout()`
+- `console.log()`
+
+Are standard JavaScript commands that can be accessed globally, no matter what environment the JS is running on. 
+
+In browsers, the `window` object defines the global scope:
+
+- All functions, variables and objects are wrapped with this object
+- So `console.log` for example, is essentialy being called as `window.console.log()`
+
+In Node, instead of the `window` object, we have the `global` object instead. Unlike `window`, the `global` object does not explicitly wrap over variables and functions within the file.
+
 ### Creating a module
 
 We can use the `module` keyword within a file to create a module which exports some data:
@@ -42,3 +58,5 @@ let example = require("./Example.js");
 
 example.greet("Rakib");
 ```
+
+### Module wrapper function
