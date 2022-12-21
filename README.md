@@ -78,3 +78,21 @@ The Module Wrapper Function is an Immediately Invoked Function Expression (IIFE)
   //module code
 });
 ```
+
+### Path Module
+
+The path module is imported using:
+
+```js
+const path = require("path");
+```
+
+As we have simply specified `'path'` as an argument, Node assumes it is a built in module.
+
+If there is no built in module matching the argument passed in `require`, then Node looks for the existence of a relative path to a file in the application.
+
+The `path` module is an object which comes with many functions
+
+e.g. `path.parse(__filename)`
+
+would return an object containing properties of the specified path
