@@ -1,0 +1,18 @@
+[
+    {
+    "title":"test title",
+    "description":"Description",
+    "emoji":{
+        "Smile":0,
+        "Thumbs Up":0,
+        "Heart":0
+    },
+    "comment":{
+        "id1":{
+            "comment-details":"asdasda",
+            "timestamp":"time data (optional)"
+            }
+    },
+    "giphyURL":"url"
+}
+]

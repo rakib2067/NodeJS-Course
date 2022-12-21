@@ -22,7 +22,7 @@ As established, Node is a Javascript runtime built ontop of a C++ engine. Theref
 - `setTimeout()`
 - `console.log()`
 
-Are standard JavaScript commands that can be accessed globally, no matter what environment the JS is running on. 
+Are standard JavaScript commands that can be accessed globally, no matter what environment the JS is running on.
 
 In browsers, the `window` object defines the global scope:
 
@@ -60,3 +60,21 @@ example.greet("Rakib");
 ```
 
 ### Module wrapper function
+
+So modules allow us to scope variables and functions to that specific module. i.e. They're private and not visible to the outisde.
+
+This is because each module in Node is wrapped in a special function called the `Module Wrapper Function`
+
+The Module Wrapper Function is an Immediately Invoked Function Expression (IIFE), which wraps every module. It contains a couple of parameters:
+
+- exports: A shortcut/reference to the `module.exports` object
+- require: This is a function local to each module, which allows us to import other modules
+- module: Allows us to create a module, and add exports to it
+- `__filename`: The complete path to the file/module
+- `__dirname`: The complete path to the containing directory
+
+```js
+(function (exports, require, module, __filename, __dirname) {
+  //module code
+});
+```
