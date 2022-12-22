@@ -96,3 +96,18 @@ The `path` module is an object which comes with many functions
 e.g. `path.parse(__filename)`
 
 would return an object containing properties of the specified path
+
+### OS Module
+
+The OS module is imported using:
+
+```js
+const os = require("os");
+```
+
+It provides a lot of useful os related utility methods and properties
+
+```js
+os.totalmem();
+os.freemem();
+```
