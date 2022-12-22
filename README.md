@@ -112,3 +112,33 @@ os.totalmem();
 os.freemem();
 ```
 As opposed to JS in the browser (Web API), Node runs outside the browser and can utilise stuff like the OS to get information as seen above.
+
+### File System Module
+
+The File System module is imported using:
+
+```js
+const fs = require("fs");
+```
+
+This module provides many utility methods for interacting with files.
+The FS module comes with 2 types of each method:
+- blocking: Synchronous 
+- non-blocking: Asynchronous
+
+Although almost always the non-blocking methods are used. As javascript is single threaded, performing a synchronous operation like reading a huge file is not ideal.
+
+```js
+const syncFile = fs.readdirSync('./');
+fs.readdir('./', (err, files) => {
+  if (err) console.log(err);
+
+  else console.log(files)
+})
+```
+
+In the above example we are reading all files in the current directory using 2 methods:
+
+- The synchronous method is blocking, so the program halts to complete the action and return the files as an array
+- The async method, takes in two arguments, the directory path and a callback function, containing either an error or the files
+
