@@ -111,3 +111,4 @@ It provides a lot of useful os related utility methods and properties
 os.totalmem();
 os.freemem();
 ```
+As opposed to JS in the browser (Web API), Node runs outside the browser and can utilise stuff like the OS to get information as seen above.
