@@ -180,5 +180,34 @@ emitter.on('messageLogged',(args)=>{
     console.log(`Message Logged by ${args.username}`);
 });
 
-emitter.emit('messageLogged', {id: 1, username:'Rakib'});
+emitter.emit('messageLogged', {id: 1, username:'Rakib'}); 
 ```
+
+### Extending the EventEmitter Class
+
+As previously mentioned, many other modules/classes are built on top of the `EventEmitter`
+
+This can be done by extending the desired class to inherit all the properties and methods of the `EventEmitter` Class.
+
+```js
+class Logger extends EventEmitter{
+    log(message, args) {
+        //Send Post request to logger
+        console.log(message)
+    
+        //raise event
+        this.emit('messageLogged', args);
+    }    
+}
+const logger = new Logger();
+
+logger.on('messageLogged',(args)=>{
+    console.log(`Message Logged by ${args.username}`);
+});
+logger.log('Hello world', {id: 1, username:'Rakib'});
+```
+
+- In the example above, the `Logger` class extends `EventEmitter` and also introduces a new method `log()`
+- Whenever `log()` is called, the instance of the `Logger` class will emit a message.
+  - The `this` keyword is used to target the specific instance
+- We can also add listeners to the instance of `Logger` to listen for specific events
