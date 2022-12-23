@@ -168,3 +168,17 @@ In the example above, we create an instance of `EventEmitter` and create both a:
 
 - Listener: To listen for a specific event, and carry out a function (callback), when that event has been raised
 - Emitter: To Raise an event
+
+### Event Arguments
+
+When raising an event, it is possible to add additional arguments, which can then be accessed in the listener.
+
+It is a best practice to wrap these within a single object.
+
+```js
+emitter.on('messageLogged',(args)=>{
+    console.log(`Message Logged by ${args.username}`);
+});
+
+emitter.emit('messageLogged', {id: 1, username:'Rakib'});
+```
