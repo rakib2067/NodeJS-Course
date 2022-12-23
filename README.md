@@ -142,3 +142,29 @@ In the above example we are reading all files in the current directory using 2 m
 - The synchronous method is blocking, so the program halts to complete the action and return the files as an array
 - The async method, takes in two arguments, the directory path and a callback function, containing either an error or the files
 
+### Events Module
+
+One of the core concepts of Node is Events. An `Event` acts a signal to indicate something that happened.
+
+For example, a HTTP server could listen on a port for requests, and each request can be interpreted as an event
+
+Importing the `Events` module returns a class called the `EventEmitter`. It is one of the core building blocks of Node and a lot of classes are based on this.
+
+```js
+const EventEmitter = require('events'); 
+const emitter = new EventEmitter();
+
+//Listener
+emitter.on('messageLogged', () => {
+  console.log('messageLogged listener called');
+})
+
+//Raising an event
+emitter.emit('messageLogged');
+
+```
+
+In the example above, we create an instance of `EventEmitter` and create both a:
+
+- Listener: To listen for a specific event, and carry out a function (callback), when that event has been raised
+- Emitter: To Raise an event
