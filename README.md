@@ -247,3 +247,29 @@ Callback Queue: When a given event is compelted in Node APIs, it is passed to th
   - The Event loop looks at both the `Call Stack` and `Callback Queue`
     - If the `Call Stack` is empty, it will run items from the `Callback Queue`
     - Otherwise, it will wait for the `Call Stack` to be empty, before running items from the Queue.
+
+### Diving deeper into the Event Loop
+[Summary of the Event Loop Cycle](https://www.youtube.com/watch?v=6YgsqXlUoTM&ab_channel=Rizwansoftech)
+So to summarise, in Node JS, the event loop does the orchestration of our code i.e. It recieves events, calls their callback functions and offloads more expensive tasks to the threadpool.
+
+There are actually multiple phases within the event loop, where each phase has its own callback queue:
+
+Expired Timer Callbacks: This phase takes care of expired timers e.g. `setTimeout()`
+- The event loop will execute callbacks for these timers first
+- For timers which take longer to complete, and expired when the event loop is in another phase, their callbacks will be executed as soon as the event loop comes back to this phase
+
+I/O Polling and Callbacks: I/O in the context of Node, mostly refers to Networking and File Access 
+
+setImmediate Callbacks: This is a special type of timer we use when we want to process callbacks, immediately after the IO phase
+
+Close Callbacks: In this phase, all close events are processed, e.g. when a websocket closes 
+
+#### Special Queues
+
+Any callback in one of these special queues, will be executed after each phase of the main cycle 
+
+NextTick Queue: `process.nextTick()` is a special function we can execute when we really need to execute a certain callback, directly after the current phase in the event loop 
+
+Other MicroTasks Queue (Resolved Promises): An example of this is when a promise resolves and returns data from an API Call, in such a case the Promise callback will be executed directly after the current phase finishes. 
+
+Each cycle of the event loop is called a `Tick`. The way Node decides whether to continue to the next Tick or to exit the program is by checking if there are any pending Timers or IO tasks that are still running in the background
