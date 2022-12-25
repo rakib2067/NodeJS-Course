@@ -250,6 +250,8 @@ Callback Queue: When a given event is compelted in Node APIs, it is passed to th
 
 ### Diving deeper into the Event Loop
 [Summary of the Event Loop Cycle](https://www.youtube.com/watch?v=6YgsqXlUoTM&ab_channel=Rizwansoftech)
+
+
 So to summarise, in Node JS, the event loop does the orchestration of our code i.e. It recieves events, calls their callback functions and offloads more expensive tasks to the threadpool.
 
 There are actually multiple phases within the event loop, where each phase has its own callback queue:
