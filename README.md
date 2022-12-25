@@ -69,6 +69,7 @@ The Module Wrapper Function is an Immediately Invoked Function Expression (IIFE)
 
 - exports: A shortcut/reference to the `module.exports` object
 - require: This is a function local to each module, which allows us to import other modules
+ - When using `require` it first reads the file, executes it and then returns the `exports`
 - module: Allows us to create a module, and add exports to it
 - `__filename`: The complete path to the file/module
 - `__dirname`: The complete path to the containing directory
@@ -211,3 +212,38 @@ logger.log('Hello world', {id: 1, username:'Rakib'});
 - Whenever `log()` is called, the instance of the `Logger` class will emit a message.
   - The `this` keyword is used to target the specific instance
 - We can also add listeners to the instance of `Logger` to listen for specific events
+
+### HTTP Module
+
+The `HTTP` Module is also one of the main building blocks of Node, which is used to create Networking Applications. E.g. The module can be used to build a webserver for the backend service for a client.
+
+
+
+
+## Asynchronous Node and Promises
+
+Javascript is, by itself, a single threaded blocking language, meaning that upon runtime, it can only handle one task at a time. However, due to Node being built on top of a C++ runtime, it is possible to write asynchronous, non-blocking code in Node.
+
+`The event loop is what allows Node. js to perform non-blocking I/O operations — despite the fact that JavaScript is single-threaded — by offloading operations to the system kernel whenever possible. Since most modern kernels are multi-threaded, they can handle multiple operations executing in the background.
+`
+
+All Node programs, at runtime consist of two things:
+
+The Heap: Where all memory allocation happens for both primitive and non-primitive variable types
+The Stack: The call stack, as the name suggests is where all the execution context takes place, and it operates within a 'Last in, First out' approach.
+  - Whenever a Node program runs, the first thing that will be added to the call stack will be the `module wrapper function` of the starting file
+  - Whenever a function is added to the callstack, it gets executed.
+  - Whenever a function finishes execution, it is then removed from the callstack
+  - Whenever an Asynchronous function is called e.g. `setTimeout()`, it is registering an event with the NodeJS APIs
+
+Node APIs: Whenever an Asynchronous function is called it is registered in Node APIs, wherein Node will use other threads behind the scenes to deal with these events
+  - This allows for other non-blocking functions to be added and executed in the call stack, whilst we wait for the Asynchronous function to finish executing
+  - In the case of `setTimeout` this event is registered in Node APIs for the set amount of time it was called with, once that time has passed, the callback needs to get executed, and is passed to the callback queue
+
+Callback Queue: When a given event is compelted in Node APIs, it is passed to the Callback Queue, wherein it will be executed (e.g, waiting for a DB response, API call etc)
+  - As the name suggests, the Callback Queue operates on a First in, first out approach
+  - Before a callback can be executed it needs to be added to the `Call Stack`
+  - This is where the `Event Loop` comes into play
+  - The Event loop looks at both the `Call Stack` and `Callback Queue`
+    - If the `Call Stack` is empty, it will run items from the `Callback Queue`
+    - Otherwise, it will wait for the `Call Stack` to be empty, before running items from the Queue.
