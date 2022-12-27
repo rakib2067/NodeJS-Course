@@ -231,7 +231,8 @@ app.get('/', (req, res)=>{
   res.send('Hello')
 })
 
-app.listen(3000, () => console.log('listening on port 3000'))
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`listening on port ${port}`))
 ```
 
 - Importing `express` returns a top level function, which by convention we assign and call to the variable `app`
@@ -239,6 +240,11 @@ app.listen(3000, () => console.log('listening on port 3000'))
   - These take in both a path, and a callback containing both the response and request
 - We can also configure our server to listen on a specific port
   - A callback can optionally provided to execute when the app starts listening on the given port
+  - We extract the port using environment variables
+
+### Environment Variables
+
+The previo
 
 ## Asynchronous Node and Promises
 
