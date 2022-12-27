@@ -248,7 +248,7 @@ Callback Queue: When a given event is compelted in Node APIs, it is passed to th
     - If the `Call Stack` is empty, it will run items from the `Callback Queue`
     - Otherwise, it will wait for the `Call Stack` to be empty, before running items from the Queue.
 
-### Diving deeper into the Event Loop
+### Diving Deeper into the Event Loop
 [Summary of the Event Loop Cycle](https://www.youtube.com/watch?v=6YgsqXlUoTM&ab_channel=Rizwansoftech)
 
 
@@ -266,7 +266,7 @@ setImmediate Callbacks: This is a special type of timer we use when we want to p
 
 Close Callbacks: In this phase, all close events are processed, e.g. when a websocket closes 
 
-#### Special Queues
+#### Special Queues:
 
 Any callback in one of these special queues, will be executed after each phase of the main cycle 
 
@@ -275,3 +275,31 @@ NextTick Queue: `process.nextTick()` is a special function we can execute when w
 Other MicroTasks Queue (Resolved Promises): An example of this is when a promise resolves and returns data from an API Call, in such a case the Promise callback will be executed directly after the current phase finishes. 
 
 Each cycle of the event loop is called a `Tick`. The way Node decides whether to continue to the next Tick or to exit the program is by checking if there are any pending Timers or IO tasks that are still running in the background
+
+### Promises  
+
+Promises make it easy for us to manage our asynchronous code, and were designed to solve many of the problems we run into when using callbacks in our applications.
+
+In Summary, a promise is an object that represents the completion or failure of an asynchronous operation. Promises provide a simpler, cleaner way to work with asynchronous code compared to using callback functions, through the use of methods such as chaining, or simply using async/await.
+
+
+
+```js
+const doWorkPromise = new Promise ((resolve, reject)=>{
+  //HTTP Request
+  if(response.ok) resolve(response)
+  else reject(response.error)
+})
+
+doWorkPromise.then(resp => console.log(resp.data)).catch((error) => console.log(error))
+
+const fetchData = async () => {
+  try{
+    let response = await doWorkPromise();
+    console.log(resp.data)
+  }catch(err){
+    console.log(err)
+  }
+}
+```
+
