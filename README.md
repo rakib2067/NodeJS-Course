@@ -219,9 +219,26 @@ The `HTTP` Module is also one of the main building blocks of Node, which is used
 
 Many backend frameworks such as `express` build on top of the `http` module
 
-## Node Package Manager (NPM)
+## Building RESTful API's using Express
 
+Express is a framework which extends the `http` module and allows for a more structured approach to creating a web server
 
+```js
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res)=>{
+  res.send('Hello')
+})
+
+app.listen(3000, () => console.log('listening on port 3000'))
+```
+
+- Importing `express` returns a top level function, which by convention we assign and call to the variable `app`
+- We can also create endpoints for handling requests
+  - These take in both a path, and a callback containing both the response and request
+- We can also configure our server to listen on a specific port
+  - A callback can optionally provided to execute when the app starts listening on the given port
 
 ## Asynchronous Node and Promises
 
