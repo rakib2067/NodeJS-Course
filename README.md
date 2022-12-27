@@ -217,6 +217,9 @@ logger.log('Hello world', {id: 1, username:'Rakib'});
 
 The `HTTP` Module is also one of the main building blocks of Node, which is used to create Networking Applications. E.g. The module can be used to build a webserver for the backend service for a client.
 
+Many backend frameworks such as `express` build on top of the `http` module
+
+## Node Package Manager (NPM)
 
 
 
@@ -281,8 +284,6 @@ Each cycle of the event loop is called a `Tick`. The way Node decides whether to
 Promises make it easy for us to manage our asynchronous code, and were designed to solve many of the problems we run into when using callbacks in our applications.
 
 In Summary, a promise is an object that represents the completion or failure of an asynchronous operation. Promises provide a simpler, cleaner way to work with asynchronous code compared to using callback functions, through the use of methods such as chaining, or simply using async/await.
-
-
 
 ```js
 const doWorkPromise = new Promise ((resolve, reject)=>{
