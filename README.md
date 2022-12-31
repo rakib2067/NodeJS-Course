@@ -242,9 +242,100 @@ app.listen(port, () => console.log(`listening on port ${port}`))
   - A callback can optionally provided to execute when the app starts listening on the given port
   - We extract the port using environment variables
 
-### Environment Variables
+### Middleware
 
-The previo
+A Middleware function, is one that takes a request object and either passes a response to the client or passes control to another middleware function. 
+
+Some examples of Middleware functions are:
+
+- `express.json()`: This function parses the request body into a JSON object and then passes it on to the route handler middleware
+- `app.get()`: This route handler also acts as a middleware, where we have the parsed request body and return a response back to the client
+
+We can also create and use custom middleware for many different things such as Authentication, Authorisation, Logging etc.
+
+#### Custom Middleware:
+
+As mentioned, it is possible to create custom middleware in express:
+
+```js
+const express = require('express');
+const app = express();
+
+app.use((req, res, next) =>{
+  console.log('Logging request');
+  next();
+})
+```
+- In the above example we use the `use` method to create a custom middleware, and pass in a callback with 3 arguments
+- The `next` function must be called in order to pass control of the request to the next middleware function in the pipeline
+- If not called, the request will be left hanging
+
+#### Third Party Middleware
+
+We can install and use third party middleware within our express applications as so:
+
+```js
+const morgan = require('morgan');
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+app.use(morgan('tiny'));
+```
+
+We download and import the `morgan` middleware, which provides logging for requests, and call it within `app.use()` 
+
+### Environments and Configuration
+
+In enterprise level codebases, we most likely have different environments e.g. Production, Development, Testing etc, wherein we may want to enable and disable features depending on the environment
+
+In order to get what environment where running on we can use: 
+- `process.env.NODE_ENV`
+  - returns `undefined` if there is no set env variable
+- `app.get('env')`
+  - returns `development` if `NODE_ENV` is undefined
+
+#### Configuration:
+
+One thing that goes hand in hand with environments is storing configuration settings. For instance, in our dev environment, we may be using a different database and mail server than production. 
+
+The most popular package used for managing config is `rc`. Another popular solution is also the `config` library.
+
+Using the config library, we create a `config` folder in our project root, containing all our different configuration files.
+  - In the example below, we have default, production and development configs
+    - The naming of the files matters as it corresponds to the environment
+  - Each file stores config variables in JSON format
+```json 
+{
+	"name": "Vividly - Development",
+	"mail": {
+		"host": "dev-mail-server"
+	}
+}
+```
+  - We can also map custom environment variables as values within the `custom-environment-variables.json` file
+  - We can then access our conguration variables as so:
+```js
+const config = require('config');
+
+console.log(`Application name: ${config.get('name')}`);
+console.log(`Mail server: ${config.get('mail.host')}`);
+console.log(`Mail password: ${config.get('mail.password')}`);
+```
+```
+├── project
+│   ├── config
+│   │   ├── custom-environment-variables.json
+│   │   ├── default.json
+│   │   ├── development.json
+│   │   ├── production.json
+├── index.js
+├── node_modules
+├── package.json
+├── package-lock.json 
+└── .gitignore
+```
+
 
 ## Asynchronous Node and Promises
 
