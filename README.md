@@ -336,6 +336,25 @@ console.log(`Mail password: ${config.get('mail.password')}`);
 └── .gitignore
 ```
 
+### Debugging
+
+The `debug` npm package, as the name suggests, is a package which aids us in debugging our applications. 
+
+We import the package as so:
+- In the second brackets, we're passing an arbitraty namespace for debugging
+- This function can now be used for writing debug messages for the assigned namespace
+
+```js
+const startupDebugger = require('debug')('app:startup')
+
+if(app.get('env') === 'development'){
+  startupDebugger('Debugging in development')
+}
+```
+
+- Essentially we can use this function to replace `console.log()`, and configure it to run only on certain environments
+- We can activate the debugger by passing the `DEBUG` env variable, with the value of the namespace 
+
 
 ## Asynchronous Node and Promises
 
