@@ -355,6 +355,9 @@ if(app.get('env') === 'development'){
 - Essentially we can use this function to replace `console.log()`, and configure it to run only on certain environments
 - We can activate the debugger by passing the `DEBUG` env variable, with the value of the namespace 
 
+### Database Integration
+
+
 
 ## Asynchronous Node and Promises
 
@@ -437,3 +440,38 @@ const fetchData = async () => {
 }
 ```
 
+### Promises in parallel and race conditions
+
+We can run multiple promises in parallel, wherein the result of all these promises will be returned in an Array:
+- If all promises were succesfully resolved, we can use `then` to get the results as an array
+- If any promises is rejected, the `catch` clause will be used to display the error
+- This is done asynchronously through the use of 1 thread kicking off multiple asynchronous operations
+  - The thread will start one operation, release and go to another
+
+```js
+const p1 = new Promise((resolve) => {
+  setTimeout(()=>{
+    console.log('Async operation 1');
+    resolve(1);
+  }, 2000)
+});
+
+const p2 = new Promise((resolve) => {
+  setTimeout(()=>{
+    console.log('Async operation 2');
+    resolve(2)
+  }, 2000)
+})
+
+Promise.all([p1, p2])
+  .then(result => console.log(result))
+  .catch(err => console.log(`Error: ${err.message}`))
+```
+
+We can also run multiple promises in parallel and perform an actions as soon as the first promise is resolved:
+
+```js
+Promise.race([p1, p2])
+  .then(result => console.log(result))
+  .catch(err => console.log(`Error: ${err.message}`))
+```
