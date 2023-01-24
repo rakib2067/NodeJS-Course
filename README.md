@@ -69,7 +69,7 @@ The Module Wrapper Function is an Immediately Invoked Function Expression (IIFE)
 
 - exports: A shortcut/reference to the `module.exports` object
 - require: This is a function local to each module, which allows us to import other modules
- - When using `require` it first reads the file, executes it and then returns the `exports`
+- When using `require` it first reads the file, executes it and then returns the `exports`
 - module: Allows us to create a module, and add exports to it
 - `__filename`: The complete path to the file/module
 - `__dirname`: The complete path to the containing directory
@@ -112,6 +112,7 @@ It provides a lot of useful os related utility methods and properties
 os.totalmem();
 os.freemem();
 ```
+
 As opposed to JS in the browser (Web API), Node runs outside the browser and can utilise stuff like the OS to get information as seen above.
 
 ### File System Module
@@ -124,18 +125,18 @@ const fs = require("fs");
 
 This module provides many utility methods for interacting with files.
 The FS module comes with 2 types of each method:
-- blocking: Synchronous 
+
+- blocking: Synchronous
 - non-blocking: Asynchronous
 
 Although almost always the non-blocking methods are used. As javascript is single threaded, performing a synchronous operation like reading a huge file is not ideal.
 
 ```js
-const syncFile = fs.readdirSync('./');
-fs.readdir('./', (err, files) => {
+const syncFile = fs.readdirSync("./");
+fs.readdir("./", (err, files) => {
   if (err) console.log(err);
-
-  else console.log(files)
-})
+  else console.log(files);
+});
 ```
 
 In the above example we are reading all files in the current directory using 2 methods:
@@ -152,17 +153,16 @@ For example, a HTTP server could listen on a port for requests, and each request
 Importing the `Events` module returns a class called the `EventEmitter`. It is one of the core building blocks of Node and a lot of classes are based on this.
 
 ```js
-const EventEmitter = require('events'); 
+const EventEmitter = require("events");
 const emitter = new EventEmitter();
 
 //Listener
-emitter.on('messageLogged', () => {
-  console.log('messageLogged listener called');
-})
+emitter.on("messageLogged", () => {
+  console.log("messageLogged listener called");
+});
 
 //Raising an event
-emitter.emit('messageLogged');
-
+emitter.emit("messageLogged");
 ```
 
 In the example above, we create an instance of `EventEmitter` and create both a:
@@ -177,11 +177,11 @@ When raising an event, it is possible to add additional arguments, which can the
 It is a best practice to wrap these within a single object.
 
 ```js
-emitter.on('messageLogged',(args)=>{
-    console.log(`Message Logged by ${args.username}`);
+emitter.on("messageLogged", (args) => {
+  console.log(`Message Logged by ${args.username}`);
 });
 
-emitter.emit('messageLogged', {id: 1, username:'Rakib'}); 
+emitter.emit("messageLogged", { id: 1, username: "Rakib" });
 ```
 
 ### Extending the EventEmitter Class
@@ -191,21 +191,21 @@ As previously mentioned, many other modules/classes are built on top of the `Eve
 This can be done by extending the desired class to inherit all the properties and methods of the `EventEmitter` Class.
 
 ```js
-class Logger extends EventEmitter{
-    log(message, args) {
-        //Send Post request to logger
-        console.log(message)
-    
-        //raise event
-        this.emit('messageLogged', args);
-    }    
+class Logger extends EventEmitter {
+  log(message, args) {
+    //Send Post request to logger
+    console.log(message);
+
+    //raise event
+    this.emit("messageLogged", args);
+  }
 }
 const logger = new Logger();
 
-logger.on('messageLogged',(args)=>{
-    console.log(`Message Logged by ${args.username}`);
+logger.on("messageLogged", (args) => {
+  console.log(`Message Logged by ${args.username}`);
 });
-logger.log('Hello world', {id: 1, username:'Rakib'});
+logger.log("Hello world", { id: 1, username: "Rakib" });
 ```
 
 - In the example above, the `Logger` class extends `EventEmitter` and also introduces a new method `log()`
@@ -224,15 +224,15 @@ Many backend frameworks such as `express` build on top of the `http` module
 Express is a framework which extends the `http` module and allows for a more structured approach to creating a web server
 
 ```js
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.get('/', (req, res)=>{
-  res.send('Hello')
-})
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`listening on port ${port}`))
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`listening on port ${port}`));
 ```
 
 - Importing `express` returns a top level function, which by convention we assign and call to the variable `app`
@@ -244,7 +244,7 @@ app.listen(port, () => console.log(`listening on port ${port}`))
 
 ### Middleware
 
-A Middleware function, is one that takes a request object and either passes a response to the client or passes control to another middleware function. 
+A Middleware function, is one that takes a request object and either passes a response to the client or passes control to another middleware function.
 
 Some examples of Middleware functions are:
 
@@ -258,14 +258,15 @@ We can also create and use custom middleware for many different things such as A
 As mentioned, it is possible to create custom middleware in express:
 
 ```js
-const express = require('express');
+const express = require("express");
 const app = express();
 
-app.use((req, res, next) =>{
-  console.log('Logging request');
+app.use((req, res, next) => {
+  console.log("Logging request");
   next();
-})
+});
 ```
+
 - In the above example we use the `use` method to create a custom middleware, and pass in a callback with 3 arguments
 - The `next` function must be called in order to pass control of the request to the next middleware function in the pipeline
 - If not called, the request will be left hanging
@@ -275,21 +276,22 @@ app.use((req, res, next) =>{
 We can install and use third party middleware within our express applications as so:
 
 ```js
-const morgan = require('morgan');
-const express = require('express');
+const morgan = require("morgan");
+const express = require("express");
 const app = express();
 
 app.use(express.json());
-app.use(morgan('tiny'));
+app.use(morgan("tiny"));
 ```
 
-We download and import the `morgan` middleware, which provides logging for requests, and call it within `app.use()` 
+We download and import the `morgan` middleware, which provides logging for requests, and call it within `app.use()`
 
 ### Environments and Configuration
 
 In enterprise level codebases, we most likely have different environments e.g. Production, Development, Testing etc, wherein we may want to enable and disable features depending on the environment
 
-In order to get what environment where running on we can use: 
+In order to get what environment where running on we can use:
+
 - `process.env.NODE_ENV`
   - returns `undefined` if there is no set env variable
 - `app.get('env')`
@@ -297,31 +299,36 @@ In order to get what environment where running on we can use:
 
 #### Configuration:
 
-One thing that goes hand in hand with environments is storing configuration settings. For instance, in our dev environment, we may be using a different database and mail server than production. 
+One thing that goes hand in hand with environments is storing configuration settings. For instance, in our dev environment, we may be using a different database and mail server than production.
 
 The most popular package used for managing config is `rc`. Another popular solution is also the `config` library.
 
 Using the config library, we create a `config` folder in our project root, containing all our different configuration files.
-  - In the example below, we have default, production and development configs
-    - The naming of the files matters as it corresponds to the environment
-  - Each file stores config variables in JSON format
-```json 
+
+- In the example below, we have default, production and development configs
+  - The naming of the files matters as it corresponds to the environment
+- Each file stores config variables in JSON format
+
+```json
 {
-	"name": "Vividly - Development",
-	"mail": {
-		"host": "dev-mail-server"
-	}
+  "name": "Vividly - Development",
+  "mail": {
+    "host": "dev-mail-server"
+  }
 }
 ```
-  - We can also map custom environment variables as values within the `custom-environment-variables.json` file
-  - We can then access our conguration variables as so:
-```js
-const config = require('config');
 
-console.log(`Application name: ${config.get('name')}`);
-console.log(`Mail server: ${config.get('mail.host')}`);
-console.log(`Mail password: ${config.get('mail.password')}`);
+- We can also map custom environment variables as values within the `custom-environment-variables.json` file
+- We can then access our conguration variables as so:
+
+```js
+const config = require("config");
+
+console.log(`Application name: ${config.get("name")}`);
+console.log(`Mail server: ${config.get("mail.host")}`);
+console.log(`Mail password: ${config.get("mail.password")}`);
 ```
+
 ```
 ├── project
 │   ├── config
@@ -332,32 +339,31 @@ console.log(`Mail password: ${config.get('mail.password')}`);
 ├── index.js
 ├── node_modules
 ├── package.json
-├── package-lock.json 
+├── package-lock.json
 └── .gitignore
 ```
 
 ### Debugging
 
-The `debug` npm package, as the name suggests, is a package which aids us in debugging our applications. 
+The `debug` npm package, as the name suggests, is a package which aids us in debugging our applications.
 
 We import the package as so:
+
 - In the second brackets, we're passing an arbitraty namespace for debugging
 - This function can now be used for writing debug messages for the assigned namespace
 
 ```js
-const startupDebugger = require('debug')('app:startup')
+const startupDebugger = require("debug")("app:startup");
 
-if(app.get('env') === 'development'){
-  startupDebugger('Debugging in development')
+if (app.get("env") === "development") {
+  startupDebugger("Debugging in development");
 }
 ```
 
 - Essentially we can use this function to replace `console.log()`, and configure it to run only on certain environments
-- We can activate the debugger by passing the `DEBUG` env variable, with the value of the namespace 
+- We can activate the debugger by passing the `DEBUG` env variable, with the value of the namespace
 
 ### Database Integration
-
-
 
 ## Asynchronous Node and Promises
 
@@ -370,79 +376,86 @@ All Node programs, at runtime consist of two things:
 
 The Heap: Where all memory allocation happens for both primitive and non-primitive variable types
 The Stack: The call stack, as the name suggests is where all the execution context takes place, and it operates within a 'Last in, First out' approach.
-  - Whenever a Node program runs, the first thing that will be added to the call stack will be the `module wrapper function` of the starting file
-  - Whenever a function is added to the callstack, it gets executed.
-  - Whenever a function finishes execution, it is then removed from the callstack
-  - Whenever an Asynchronous function is called e.g. `setTimeout()`, it is registering an event with the NodeJS APIs
+
+- Whenever a Node program runs, the first thing that will be added to the call stack will be the `module wrapper function` of the starting file
+- Whenever a function is added to the callstack, it gets executed.
+- Whenever a function finishes execution, it is then removed from the callstack
+- Whenever an Asynchronous function is called e.g. `setTimeout()`, it is registering an event with the NodeJS APIs
 
 Node APIs: Whenever an Asynchronous function is called it is registered in Node APIs, wherein Node will use other threads behind the scenes to deal with these events
-  - This allows for other non-blocking functions to be added and executed in the call stack, whilst we wait for the Asynchronous function to finish executing
-  - In the case of `setTimeout` this event is registered in Node APIs for the set amount of time it was called with, once that time has passed, the callback needs to get executed, and is passed to the callback queue
+
+- This allows for other non-blocking functions to be added and executed in the call stack, whilst we wait for the Asynchronous function to finish executing
+- In the case of `setTimeout` this event is registered in Node APIs for the set amount of time it was called with, once that time has passed, the callback needs to get executed, and is passed to the callback queue
 
 Callback Queue: When a given event is compelted in Node APIs, it is passed to the Callback Queue, wherein it will be executed (e.g, waiting for a DB response, API call etc)
-  - As the name suggests, the Callback Queue operates on a First in, first out approach
-  - Before a callback can be executed it needs to be added to the `Call Stack`
-  - This is where the `Event Loop` comes into play
-  - The Event loop looks at both the `Call Stack` and `Callback Queue`
-    - If the `Call Stack` is empty, it will run items from the `Callback Queue`
-    - Otherwise, it will wait for the `Call Stack` to be empty, before running items from the Queue.
+
+- As the name suggests, the Callback Queue operates on a First in, first out approach
+- Before a callback can be executed it needs to be added to the `Call Stack`
+- This is where the `Event Loop` comes into play
+- The Event loop looks at both the `Call Stack` and `Callback Queue`
+  - If the `Call Stack` is empty, it will run items from the `Callback Queue`
+  - Otherwise, it will wait for the `Call Stack` to be empty, before running items from the Queue.
 
 ### Diving Deeper into the Event Loop
-[Summary of the Event Loop Cycle](https://www.youtube.com/watch?v=6YgsqXlUoTM&ab_channel=Rizwansoftech)
 
+[Summary of the Event Loop Cycle](https://www.youtube.com/watch?v=6YgsqXlUoTM&ab_channel=Rizwansoftech)
 
 So to summarise, in Node JS, the event loop does the orchestration of our code i.e. It recieves events, calls their callback functions and offloads more expensive tasks to the threadpool.
 
 There are actually multiple phases within the event loop, where each phase has its own callback queue:
 
 Expired Timer Callbacks: This phase takes care of expired timers e.g. `setTimeout()`
+
 - The event loop will execute callbacks for these timers first
 - For timers which take longer to complete, and expired when the event loop is in another phase, their callbacks will be executed as soon as the event loop comes back to this phase
 
-I/O Polling and Callbacks: I/O in the context of Node, mostly refers to Networking and File Access 
+I/O Polling and Callbacks: I/O in the context of Node, mostly refers to Networking and File Access
 
 setImmediate Callbacks: This is a special type of timer we use when we want to process callbacks, immediately after the IO phase
 
-Close Callbacks: In this phase, all close events are processed, e.g. when a websocket closes 
+Close Callbacks: In this phase, all close events are processed, e.g. when a websocket closes
 
 #### Special Queues:
 
-Any callback in one of these special queues, will be executed after each phase of the main cycle 
+Any callback in one of these special queues, will be executed after each phase of the main cycle
 
-NextTick Queue: `process.nextTick()` is a special function we can execute when we really need to execute a certain callback, directly after the current phase in the event loop 
+NextTick Queue: `process.nextTick()` is a special function we can execute when we really need to execute a certain callback, directly after the current phase in the event loop
 
-Other MicroTasks Queue (Resolved Promises): An example of this is when a promise resolves and returns data from an API Call, in such a case the Promise callback will be executed directly after the current phase finishes. 
+Other MicroTasks Queue (Resolved Promises): An example of this is when a promise resolves and returns data from an API Call, in such a case the Promise callback will be executed directly after the current phase finishes.
 
 Each cycle of the event loop is called a `Tick`. The way Node decides whether to continue to the next Tick or to exit the program is by checking if there are any pending Timers or IO tasks that are still running in the background
 
-### Promises  
+### Promises
 
 Promises make it easy for us to manage our asynchronous code, and were designed to solve many of the problems we run into when using callbacks in our applications.
 
 In Summary, a promise is an object that represents the completion or failure of an asynchronous operation. Promises provide a simpler, cleaner way to work with asynchronous code compared to using callback functions, through the use of methods such as chaining, or simply using async/await.
 
 ```js
-const doWorkPromise = new Promise ((resolve, reject)=>{
+const doWorkPromise = new Promise((resolve, reject) => {
   //HTTP Request
-  if(response.ok) resolve(response)
-  else reject(response.error)
-})
+  if (response.ok) resolve(response);
+  else reject(response.error);
+});
 
-doWorkPromise.then(resp => console.log(resp.data)).catch((error) => console.log(error))
+doWorkPromise
+  .then((resp) => console.log(resp.data))
+  .catch((error) => console.log(error));
 
 const fetchData = async () => {
-  try{
+  try {
     let response = await doWorkPromise();
-    console.log(resp.data)
-  }catch(err){
-    console.log(err)
+    console.log(resp.data);
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 ```
 
 ### Promises in parallel and race conditions
 
 We can run multiple promises in parallel, wherein the result of all these promises will be returned in an Array:
+
 - If all promises were succesfully resolved, we can use `then` to get the results as an array
 - If any promises is rejected, the `catch` clause will be used to display the error
 - This is done asynchronously through the use of 1 thread kicking off multiple asynchronous operations
@@ -450,28 +463,36 @@ We can run multiple promises in parallel, wherein the result of all these promis
 
 ```js
 const p1 = new Promise((resolve) => {
-  setTimeout(()=>{
-    console.log('Async operation 1');
+  setTimeout(() => {
+    console.log("Async operation 1");
     resolve(1);
-  }, 2000)
+  }, 2000);
 });
 
 const p2 = new Promise((resolve) => {
-  setTimeout(()=>{
-    console.log('Async operation 2');
-    resolve(2)
-  }, 2000)
-})
+  setTimeout(() => {
+    console.log("Async operation 2");
+    resolve(2);
+  }, 2000);
+});
 
 Promise.all([p1, p2])
-  .then(result => console.log(result))
-  .catch(err => console.log(`Error: ${err.message}`))
+  .then((result) => console.log(result))
+  .catch((err) => console.log(`Error: ${err.message}`));
 ```
 
 We can also run multiple promises in parallel and perform an actions as soon as the first promise is resolved:
 
 ```js
 Promise.race([p1, p2])
-  .then(result => console.log(result))
-  .catch(err => console.log(`Error: ${err.message}`))
+  .then((result) => console.log(result))
+  .catch((err) => console.log(`Error: ${err.message}`));
 ```
+
+## MongoDB
+
+MongoDB is a `NoSQL` database which stores data in the collections as opposed to tables in the form of a JSON like structure called `documents`
+
+### Mongoose
+
+`Mongoose` is a library that enhances our use of MongoDB. It allows us to provide schemas to define the shape of documents within a collection
